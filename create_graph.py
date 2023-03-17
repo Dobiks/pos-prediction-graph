@@ -1,5 +1,8 @@
 import networkx as nx
 from graph_utils import plot_graph
+import pandas as pd
+
+static = pd.read_csv('corrected_static.csv')
 
 G = nx.Graph()
 
