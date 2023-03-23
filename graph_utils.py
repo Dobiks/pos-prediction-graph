@@ -5,7 +5,7 @@ import plotly.subplots as sp
 import plotly.graph_objs as go
 
 
-def plot_graph(G):
+def plot_graph(G, save=False):
     pos = nx.get_node_attributes(G, 'pos')
     x, y, z = zip(*[pos[v] for v in G.nodes()])
 
@@ -35,7 +35,12 @@ def plot_graph(G):
                                  yaxis=dict(range=[-100, 100], autorange=False),
                                  zaxis=dict(range=[-230, 10], autorange=False)),)
 
-    fig.show()
+    if save:
+        fig.write_html('graph.html')
+        print('Graph saved to graph.html')
+    else:
+        fig.show()
+        print('Graph displayed')
 
 
 def random_point_on_sphere(r):

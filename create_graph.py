@@ -2,6 +2,8 @@ import networkx as nx
 from graph_utils import plot_graph
 import pandas as pd
 
+SAVE_GRAPH = True
+
 static = pd.read_csv('corrected_static.csv')
 
 G = nx.Graph()
@@ -21,4 +23,5 @@ G.add_edge('node_1', 'node_3')
 G.add_edge('node_1', 'node_4')
 G.add_edge('node_1', 'node_5')
 
-plot_graph(G)
+
+plot_graph(G, SAVE_GRAPH)
