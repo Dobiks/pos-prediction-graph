@@ -1,6 +1,6 @@
 name,number,coords_x_y_z
 root , 0 , 0/0/0
-root_right ,-1, 20/0/0
+root_cross_right ,-1, 20/0/0
 cross_root_conn_a ,-1,20/0/9
 conn_a , 104 , 20/-50/9
 cross_conn_b_bag_b_bag_a ,-1, 20/-47/5
