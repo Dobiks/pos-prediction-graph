@@ -4,9 +4,9 @@ import networkx as nx
 import plotly.subplots as sp
 import plotly.graph_objs as go
 
-
 def plot_graph(G, save=False):
     pos = nx.get_node_attributes(G, 'pos')
+    nodes = G.nodes()
     x, y, z = zip(*[pos[v] for v in G.nodes()])
 
     node_names = list(G.nodes())
