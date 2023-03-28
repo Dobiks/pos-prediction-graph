@@ -3,11 +3,11 @@ from graph_utils import plot_graph
 import numpy as np
 import pandas as pd
 
-SAVE_GRAPH = False
-ONLY_STATIC = True
+SAVE_GRAPH = True
+ONLY_STATIC = False
 
 static = pd.read_csv('corrected_static.csv')
-detected = pd.read_csv('detected_graph.csv')
+detected = pd.read_csv('rotated_graph.csv')
 static['name'] = static['name'].str.replace(' ', '')
 detected['name'] = detected['name'].str.replace(' ', '')
 
