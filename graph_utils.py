@@ -5,7 +5,7 @@ import plotly.subplots as sp
 import plotly.graph_objs as go
 
 
-def plot_graph(static_graph, detected_graph=None, save=False):
+def plot_graph(static_graph, detected_graph=None, name='graph', save=False):
     pos = nx.get_node_attributes(static_graph, 'pos')
     nodes = static_graph.nodes()
     x, y, z = zip(*[pos[v] for v in static_graph.nodes()])
@@ -34,13 +34,11 @@ def plot_graph(static_graph, detected_graph=None, save=False):
         # Create a scatter plot for the nodes
         node_scatter2 = go.Scatter3d(x=x2, y=y2, z=z2, mode='markers', marker=dict(
             size=10, color='green'), text=node_names2)
-        
-
 
     # #change the color of the nodes of node_scatter that contains 'cross' in name else its red
-    
-    node_scatter.marker.color = ['red' if 'cross' not in node else 'pink' for node in node_names]
 
+    node_scatter.marker.color = [
+        'red' if 'cross' not in node else 'pink' for node in node_names]
 
     # Create a subplot with 3D scatter plots for nodes and edges
     fig = sp.make_subplots(rows=1, cols=1, specs=[[{'type': 'scatter'}]])
@@ -50,7 +48,6 @@ def plot_graph(static_graph, detected_graph=None, save=False):
     if detected_graph is not None:
         fig.add_trace(node_scatter2)
 
-
     # Set the axis limits
     fig.update_layout(scene=dict(xaxis=dict(range=[-100, 100], autorange=False),
                                  yaxis=dict(range=[-100, 100],
@@ -58,8 +55,8 @@ def plot_graph(static_graph, detected_graph=None, save=False):
                                  zaxis=dict(range=[-230, 10], autorange=False)),)
 
     if save:
-        fig.write_html('graph.html')
-        print('Graph saved to graph.html')
+        fig.write_html(f'{name}.html')
+        print(f'Graph saved to {name}.html')
     else:
         fig.show()
         print('Graph displayed')

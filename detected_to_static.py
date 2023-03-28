@@ -2,9 +2,9 @@ import networkx as nx
 from graph_utils import plot_graph
 import numpy as np
 import pandas as pd
+from transformation_utils import get_rotation, rotate_graph, get_rotation_nn
 
 SAVE_GRAPH = True
-ONLY_STATIC = False
 
 static = pd.read_csv('static_graph.csv')
 detected = pd.read_csv('randomized_graph.csv')
@@ -19,11 +19,18 @@ for i in range(len(static)):
 for i in range(len(detected)):
     G2.add_node(detected['name'][i], pos=(detected['x'][i], detected['z'][i], detected['y'][i]))
 
-#add parent basing on static['parent']
 for i in range(len(static)):
     if static['parent'][i] != 0 and static['parent'][i] != '0':
         G.add_edge(static['name'][i], static['parent'][i])
 
-if ONLY_STATIC: G2 = None
-plot_graph(G, G2, save = SAVE_GRAPH)
+plot_graph(G, G2, name='before',save = SAVE_GRAPH)
+
+rotation = get_rotation_nn(static, detected, save_plot=True)
+detected = rotate_graph(detected, rotation)
+
+G2 = nx.Graph()
+for i in range(len(detected)):
+    G2.add_node(detected['name'][i], pos=(detected['x'][i], detected['z'][i], detected['y'][i]))
+
+plot_graph(G, G2, name='after',save = SAVE_GRAPH)
 
