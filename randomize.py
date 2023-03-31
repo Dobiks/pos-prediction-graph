@@ -32,7 +32,7 @@ def randomize_angle(df):
     return df, angle
 
 def randomize_postion(df):
-    MAX_DISTANCE = 10
+    MAX_DISTANCE = 5
     for row in df.itertuples():
         current_pos = (row.x, row.y, row.z)
         direction = [random.uniform(-1, 1) for i in range(3)]

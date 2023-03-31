@@ -2,7 +2,7 @@ import networkx as nx
 from graph_utils import plot_graph
 import numpy as np
 import pandas as pd
-from transformation_utils import get_rotation, rotate_graph, get_rotation_nn
+from transformation_utils import get_rotation, rotate_graph, get_rotation_nn, optim_rotation
 
 SAVE_GRAPH = True
 
@@ -25,7 +25,8 @@ for i in range(len(static)):
 
 plot_graph(G, G2, name='before',save = SAVE_GRAPH)
 
-rotation = get_rotation_nn(static, detected, save_plot=True)
+# rotation = get_rotation_nn(static, detected, save_plot=True)
+rotation = optim_rotation(static, detected)
 detected = rotate_graph(detected, rotation)
 
 G2 = nx.Graph()

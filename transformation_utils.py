@@ -3,6 +3,9 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import time
+from scipy.optimize import minimize
+
+
 def rotate_graph(detected, angle):
 
     angle = 360-angle
@@ -107,6 +110,39 @@ def get_rotation_nn(static, detected, save_plot=False):
 
         return rotation
 
+
+def optim_rotation(static,detected):
+    def loss(x):
+        df = detected.copy()
+        angle = x[0]
+
+        rotation_matrix = np.array([[np.cos(angle), 0, np.sin(angle)],
+                                    [0, 1, 0],
+                                    [-np.sin(angle), 0, np.cos(angle)]])
+
+        cords_matrix = np.array([df['x'], df['y'], df['z']])
+        cords_matrix = cords_matrix.T
+        rotated_cords = np.dot(cords_matrix, rotation_matrix)
+        rotated_cords = np.round(rotated_cords, 2)
+
+        df['x'] = rotated_cords[:, 0]
+        df['y'] = rotated_cords[:, 1]
+        df['z'] = rotated_cords[:, 2]
+        distances = []
+        for i, row1 in df.iterrows():
+            distances_i = []
+            for j, row2 in static.iterrows():
+                dist = np.sqrt((row1["x"] - row2["x"])**2 + (row1["y"] - row2["y"])**2 + (row1["z"] - row2["z"])**2)
+                distances_i.append(dist)
+            closest = min(distances_i)
+            distances.append(closest)
+        return sum(distances)
+
+    initial_guess =2
+    res = minimize(loss, initial_guess)
+    angle = np.degrees(res.x[0])
+    print('Rotation:', angle)
+    return angle
 
 
 if __name__ == '__main__':
