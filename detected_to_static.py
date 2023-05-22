@@ -26,7 +26,7 @@ for i in range(len(static)):
 plot_graph(G, G2, name='before',save = SAVE_GRAPH)
 
 # rotation = get_rotation_nn(static, detected, save_plot=True)
-rotation = optim_rotation(static, detected)
+rotation = get_rotation_nn(static, detected, save_plot=True)
 detected = rotate_graph(detected, rotation)
 
 G2 = nx.Graph()

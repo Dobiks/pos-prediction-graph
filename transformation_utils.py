@@ -58,7 +58,7 @@ def get_rotation(static, detected, save_plot=False):
     rotation = 360-min(loss, key=loss.get)
     print('Rotation:', rotation)
     print('Rotation find time:', time.time()-start)
-    if save_plot:
+    if save_plot: 
         plt.plot(loss.keys(), loss.values())
         plt.xlabel('Angle')
         plt.ylabel('Loss')
