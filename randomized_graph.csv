@@ -3,7 +3,7 @@ root,0,0.0,0.0,0.0,0
 root_cross_right,-1,9.4,1.0,-3.42,root
 root_cross_right2,-1,11.28,-15.0,-4.1,root_cross_right
 root_cross_left,-2,-12.22,-20.0,4.45,root
-conn_a,104,15.72,-50.0,-15.3,root_cross_right
+conn_k,104,15.72,-50.0,-15.3,root_cross_right
 cross_e,-1,-12.22,-25.0,4.45,root_cross_left
 cross_e_c,-1,-7.18,-55.0,-8.03,cross_e
 cross_f,-1,-12.22,-30.0,4.45,cross_e
@@ -20,7 +20,7 @@ box,53,-14.1,-70.0,5.13,cross_k
 cross_gh,80,-23.83,-107.0,7.61,box
 conn_g,80,-26.57,-114.0,0.09,cross_gh
 conn_h,82,-19.73,-115.0,7.18,cross_gh
-conn_k,45,-3.42,-104.0,-9.4,cross_k
+conn_a,45,-3.42,-104.0,-9.4,cross_k
 conn_d,38,9.14,-129.0,-12.9,cross_f37
 cross_bag_br,-1,12.22,-50.0,-4.45,root_cross_right2
 bag_b_r,224,13.32,-105.0,-10.17,cross_bag_br
