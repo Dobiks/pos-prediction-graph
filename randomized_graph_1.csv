@@ -1,4 +1,0 @@
-name,number,x,y,z,parent
-root,0,0.0,0.0,0.0,0
-root_cross_right,-1,9.4,1.0,-3.42,root
-conn_a,104,15.72,-50.0,-15.3,root_cross_right
