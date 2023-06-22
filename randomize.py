@@ -57,8 +57,8 @@ def randomize_postion(df):
     return df
 
 
-def rand_all(do_angle=True, do_pos=True, do_pick=True):
-    df = pd.read_csv("detection_graph.csv")
+def randomize(do_angle=False, do_pos=True, do_pick=False):
+    df = pd.read_csv("/home/mikolaj/git/pos-prediction-graph/csv_files/detection_graph.csv")
 
     root_df = df.iloc[0]
     df = df.iloc[1:]
@@ -74,9 +74,9 @@ def rand_all(do_angle=True, do_pos=True, do_pick=True):
         angle = 0
 
     df = pd.concat([root_df.to_frame().T, df])
-    df.to_csv("randomized_graph.csv", index=False)
+    df.to_csv("/home/mikolaj/git/pos-prediction-graph/csv_files/randomized_graph.csv", index=False)
     return angle
 
 
 if __name__ == "__main__":
-    rand_all(do_angle=True, do_pos=False, do_pick=False)
+    randomize(do_angle=True, do_pos=False, do_pick=False)
