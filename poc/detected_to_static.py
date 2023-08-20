@@ -1,8 +1,8 @@
 import networkx as nx
-from graph_utils import plot_graph
+from utils.graph_utils import plot_graph
 import numpy as np
 import pandas as pd
-from transformation_utils import get_rotation, rotate_graph, get_rotation_nn, optim_rotation
+from utils.transformation_utils import get_rotation, rotate_graph, get_rotation_nn, optim_rotation
 
 SAVE_GRAPH = True
 

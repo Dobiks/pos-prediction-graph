@@ -1,5 +1,5 @@
 import networkx as nx
-from graph_utils import plot_graph
+from utils.graph_utils import plot_graph
 import pandas as pd
 
 SAVE_GRAPH = True

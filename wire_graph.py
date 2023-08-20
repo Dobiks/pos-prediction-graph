@@ -1,5 +1,5 @@
 import networkx as nx
-from graph_utils import plot_graph
+from utils.graph_utils import plot_graph
 import numpy as np
 import pandas as pd
 

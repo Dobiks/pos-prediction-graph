@@ -1,5 +1,5 @@
-from randomize import randomize
-from transformation_utils import get_rotation, get_rotation_nn
+from utils.randomize import randomize
+from utils.transformation_utils import get_rotation, get_rotation_nn
 from sklearn.metrics import mean_absolute_error
 import pandas as pd
 
