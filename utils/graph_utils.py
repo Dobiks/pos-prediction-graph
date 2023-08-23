@@ -1,9 +1,7 @@
-import math
-import random
 import networkx as nx
 import plotly.subplots as sp
 import plotly.graph_objs as go
-
+import numpy as np
 
 def plot_graph(static_graph, detected_graph=None, name='graph', save=False):
     pos = nx.get_node_attributes(static_graph, 'pos')
@@ -62,18 +60,24 @@ def plot_graph(static_graph, detected_graph=None, name='graph', save=False):
         print('Graph displayed')
 
 
-def random_point_on_sphere(r):
-    x = random.uniform(-1, 1)
-    y = random.uniform(-1, 1)
-    z = random.uniform(-1, 0)
+def calculate_distance(point1, point2):
+    """Calculates the Euclidean distance between two 3D points"""
+    x1, y1, z1 = point1
+    x2, y2, z2 = point2
+    return np.sqrt((x1 - x2)**2 + (y1 - y2)**2 + (z1 - z2)**2)
 
-    x *= r
-    y *= r
-    z *= r
-
-    normalization_factor = math.sqrt(x**2 + y**2 + z**2)
-    x /= normalization_factor
-    y /= normalization_factor
-    z /= normalization_factor
-
-    return x, y, z
+def find_closest_node(G1, G2):
+    """Finds the closest G1 node for each node in G2"""
+    closest_nodes = {}
+    for g2_node in G2.nodes(data=True):
+        g2_pos = g2_node[1]['pos']
+        min_dist = float('inf')
+        min_node = None
+        for g1_node in G1.nodes(data=True):
+            g1_pos = g1_node[1]['pos']
+            dist = calculate_distance(g1_pos, g2_pos)
+            if dist < min_dist:
+                min_dist = dist
+                min_node = g1_node[0]
+        closest_nodes[g2_node[0]] = min_node
+    return closest_nodes

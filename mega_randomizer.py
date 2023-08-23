@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from utils.consts import level_order
+from utils.consts import LEVEL_ORDER
 import math
 import networkx as nx
 from utils.graph_utils import plot_graph
@@ -8,14 +8,16 @@ import numpy as np
 import pandas as pd
 import random
 import copy
+import math
+
 
 def calculate_softmax(df):
     df = copy.deepcopy(df)
     df = df[df["name"] != "root"]
     df = df.reset_index(drop=True)
     for i in range(len(df)):
-        df[df["name"][i]] = 0 
-    #drop row with name root
+        df[df["name"][i]] = 0
+    # drop row with name root
 
     names_list = df["name"].tolist()
     # for row
@@ -23,7 +25,6 @@ def calculate_softmax(df):
         name = df["name"][i]
         current_softmax = random.uniform(0.5, 0.99)
         df.at[i, name] = current_softmax
-
 
         random_names = random.sample(names_list, random.randint(1, len(names_list)))
         if name in random_names:
@@ -36,13 +37,11 @@ def calculate_softmax(df):
         for j in range(len(random_names)):
             df.at[i, random_names[j]] = other_values[j]
 
-
     return df
 
 
-def randomize_nodes(df):
-    max_distance = 3
-    #reset index
+def randomize_nodes(df, max_distance):
+    # reset index
     df = df.reset_index(drop=True)
     for i in range(len(df)):
         current_pos = (df["x"][i], df["y"][i], df["z"][i])
@@ -50,19 +49,22 @@ def randomize_nodes(df):
         length = math.sqrt(sum([x**2 for x in direction]))
         direction = tuple([x / length for x in direction])
 
-        distance = random.uniform(0, max_distance)
-
+        # distance = random.uniform(0, max_distance)
+        distance=max_distance
         new_pos = tuple([current_pos[i] + direction[i] * distance for i in range(3)])
         new_pos = np.round(new_pos, 2)
+        ###print distance between new and old pos
+        # #print("new pos",new_pos[1])
+        # #print(np.sqrt((current_pos[0]-new_pos[0])**2 + (current_pos[1]-new_pos[1])**2 + (current_pos[2]-new_pos[2])**2))
         df.loc[i, ["x", "y", "z"]] = new_pos
     return df
 
 
-def add_softmax(df, n=10):
+def add_softmax(df, distance, n_detections):
     new_frames = []  # List to hold the DataFrames
-
-    for _ in range(n):
-        tmp_df = randomize_nodes(df)
+    # n = random.randint(1, n)
+    for _ in range(n_detections):
+        tmp_df = randomize_nodes(df, distance)
         tmp_df = calculate_softmax(tmp_df)
         new_frames.append(tmp_df)
 
@@ -70,17 +72,16 @@ def add_softmax(df, n=10):
     df = pd.concat(new_frames, ignore_index=True)
 
     df = df.drop(columns=["name"])
-    #move index to first column "id"
+    # move index to first column "id"
     df.insert(0, "id", df.index)
 
     return df
 
 
-
 def calc_child_pos(parent_cords: tuple, max_distance: float):
     direction = (
         random.uniform(-1, 1),
-        random.uniform(-1, -0.6),
+        random.uniform(-1, -0.8),
         random.uniform(-1, 1),
     )
     length = math.sqrt(sum([x**2 for x in direction]))
@@ -102,15 +103,13 @@ def generate_graph():
         "root_cross_right2",
     ]
 
-    
-
-    for node_name in level_order:
+    for node_name in LEVEL_ORDER:
         if node_name in skip_names:
             continue
         node_df = static_df[static_df["name"] == node_name]
         parent_name = node_df["parent"].iloc[0]
         parent_df = static_df[static_df["name"] == parent_name]
-        print(static_df)
+        ##print(static_df)
         parent_cords = (
             parent_df["x"].iloc[0],
             parent_df["y"].iloc[0],
@@ -136,20 +135,17 @@ def generate_graph():
     )
     static_df = static_df[static_df["number"] >= 0]
 
-
     return static_df
 
 
-def main():
+def randomize(distance=1, detections=10):
     df = generate_graph()
-    df = add_softmax(df)
+    df = add_softmax(df, distance, detections)
     df.to_csv(
         "/home/mikolaj/git/pos-prediction-graph/data_generation/mega_randomized.csv",
         index=False,
     )
 
 
-
-
 if __name__ == "__main__":
-    main()
+    randomize(distance=1)

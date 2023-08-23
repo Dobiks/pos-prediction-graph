@@ -1,4 +1,4 @@
-level_order = [
+LEVEL_ORDER = [
     "root_cross_right",
     "root_cross_left",
     "root_cross_right2",
@@ -29,5 +29,27 @@ level_order = [
     "conn_d",
     "conn_g",
     "conn_h",
+    "bag_a_l",
+]
+
+COMPONENTS = [
+    "conn_a",
+    "conn_f_30",
+    "conn_f_37",
+    "conn_f_60",
+    "conn_e",
+    "conn_c",
+    "bag_b_l",
+    "box",
+    "cross_gh",
+    "conn_g",
+    "conn_h",
+    "conn_k",
+    "conn_d",
+    "bag_b_r",
+    "bag_a_r",
+    "conn_b",
+    "conn_i",
+    "conn_j",
     "bag_a_l",
 ]
