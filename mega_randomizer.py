@@ -81,7 +81,7 @@ def add_softmax(df, distance, n_detections):
 def calc_child_pos(parent_cords: tuple, max_distance: float):
     direction = (
         random.uniform(-1, 1),
-        random.uniform(-1, -0.8),
+        random.uniform(-1, -0.5),
         random.uniform(-1, 1),
     )
     length = math.sqrt(sum([x**2 for x in direction]))

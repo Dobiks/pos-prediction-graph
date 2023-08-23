@@ -43,7 +43,7 @@ def prepare_csv(n_detections):
         with open(f"results/results_{n_d}.csv", "w") as f:
             f.write("distances,mae,component_mae\n")
 
-if __name__ == "__main__":
+def perform_loop():
     empty_df = pd.DataFrame(columns=["name", "mae"])
     distances = [i for i in range(1, 21)]
     n_detections = [3,5,8,10,15,20]
@@ -70,3 +70,12 @@ if __name__ == "__main__":
     empty_df.to_csv("results/mean_mae.csv")
 
             
+def perform_once():
+    merged, mae, component_mae = perform_experiment(distance=2, detections=10)
+    print(merged)
+    print(f"Mean mae: {mae}")
+    print(f"Mean component mae: {component_mae}")
+
+if __name__ == "__main__":
+    perform_loop()
+    # perform_once()
